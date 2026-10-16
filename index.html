@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenPulse Sensor Logger</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="portal-header">
+      <h1>GreenPulse Sensor Logger</h1>
+      <span id="queue-count" class="badge-count">0 active</span>
+    </header>
 
+    <main class="portal-layout">
+      <aside class="panel form-panel">
+        <h2>Log Bay Reading</h2>
+
+        <p id="form-error-banner" class="alert alert-danger hidden" role="alert"></p>
+
+        <form id="sensor-form" novalidate>
+          <div class="form-group">
+            <label for="bay-id" class="form-label">Bay Name</label>
+            <input
+              id="bay-id"
+              name="bay-id"
+              type="text"
+              class="form-control"
+              placeholder="Bay 1"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ph-level" class="form-label">pH (0 to 14)</label>
+              <input
+                id="ph-level"
+                name="ph-level"
+                type="number"
+                class="form-control"
+                min="0"
+                max="14"
+                step="0.1"
+                placeholder="6.2"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="ec-level" class="form-label">EC (mS/cm)</label>
+              <input
+                id="ec-level"
+                name="ec-level"
+                type="number"
+                class="form-control"
+                min="0"
+                max="10"
+                step="0.1"
+                placeholder="1.5"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="air-temp" class="form-label">Air Temperature (°F)</label>
+              <input
+                id="air-temp"
+                name="air-temp"
+                type="number"
+                class="form-control"
+                min="32"
+                max="120"
+                step="0.1"
+                placeholder="68"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="humidity" class="form-label">Humidity (%)</label>
+              <input
+                id="humidity"
+                name="humidity"
+                type="number"
+                class="form-control"
+                min="0"
+                max="100"
+                step="1"
+                placeholder="60"
+                required
+              />
+            </div>
+          </div>
+
+          <button id="btn-submit" type="submit" class="btn btn-primary btn-block">
+            Record Reading
+          </button>
+        </form>
+
+        <ul class="status-key" aria-label="Status key">
+          <li><span class="key-dot key-optimal"></span>Optimal: all four readings in the ideal range</li>
+          <li><span class="key-dot key-warning"></span>Warning: anything in between</li>
+          <li><span class="key-dot key-critical"></span>Critical Hazard: all four readings in the danger zone</li>
+        </ul>
+      </aside>
+
+      <section class="panel records-panel">
+        <header class="records-header">
+          <h2>Active Sensor Log</h2>
+          <button id="btn-purge" type="button" class="btn btn-outline-danger btn-sm">
+            Purge Queue
+          </button>
+        </header>
+
+        <p id="empty-state" class="empty-state">No readings logged yet.</p>
+
+        <ul id="records-list" class="records-grid" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <footer class="portal-footer">
+      <p>&copy; 2026 GreenPulse Sensor Logger. CSI 3150 Assignment 2B.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
